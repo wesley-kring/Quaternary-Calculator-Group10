@@ -1,6 +1,23 @@
-/*
-Quaternary Calculator Group 10 
+
+## Quaternary Calculator Group 10
+
 Jude, Carter, Wesley, and Alex
 
-Meeting times: Wednesday 5pm 
-*/
+
+## Tasks
+
+As a student, I would like to add, subtract multiply and divide in base 4 with a convenient user interface
+
+Ceating the user interface display - Alex (Hupe)
+
+Creating the user interface buttons - Jude
+
+Creating the logic for multiplying and dividing - Wesley
+
+Creating the logic for adding and subtracting - Carter
+
+## Meeting times: 
+
+Wednesday 5pm 
+ - All members attended in person at Bracken Library to discuss the project, split up tasks and set up the repository
+
