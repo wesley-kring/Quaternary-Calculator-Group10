@@ -1,5 +1,5 @@
 
-## Quaternary Calculator Group 10
+## Quaternary edu.bsu.cs455.calculator.Calculator Group 10
 
 Jude, Carter, Wesley, and Alex
 
