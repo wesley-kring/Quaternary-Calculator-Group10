@@ -1,4 +1,6 @@
-public class Calculator {
+package edu.bsu.cs;
+
+public class CalculatorMath {
     public static void main(String args[]){
         int stage = 1;
 
@@ -7,3 +9,4 @@ public class Calculator {
         }
     }
 }
+
