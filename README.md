@@ -18,6 +18,6 @@ Creating the logic for adding and subtracting - Carter
 
 ## Meeting times: 
 
-Wednesday 5pm 
+Wednesday 5:00pm - 6:15pm
  - All members attended in person at Bracken Library to discuss the project, split up tasks and set up the repository
 
