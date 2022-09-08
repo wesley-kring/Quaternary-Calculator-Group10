@@ -17,7 +17,7 @@ dependencies {
 }
 
 application {
-    mainClassName("edu.bsu.cs455.calculator.App")
+    mainClassName("edu.bsu.cs.App")
 }
 
 javafx {
