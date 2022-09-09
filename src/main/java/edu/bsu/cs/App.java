@@ -31,6 +31,13 @@ public class App extends Application {
 
     private void setButtonEvents(){
         zero.setOnAction(event -> zeroTask());
+        one.setOnAction(event -> oneTask());
+        two.setOnAction(event -> twoTask());
+        three.setOnAction(event -> threeTask());
+        add.setOnAction(event -> addTask());
+        subtract.setOnAction(event -> subtractTask());
+        multiply.setOnAction(event -> multiplyTask());
+        divide.setOnAction(event -> divideTask());
     }
 
     private void setButtonLabels(){
@@ -61,6 +68,27 @@ public class App extends Application {
 
     private void zeroTask(){
         System.out.println("0");
+    }
+    private void oneTask(){
+        System.out.println("1");
+    }
+    private void twoTask(){
+        System.out.println("2");
+    }
+    private void threeTask(){
+        System.out.println("3");
+    }
+    private void addTask(){
+        System.out.println("+");
+    }
+    private void subtractTask(){
+        System.out.println("-");
+    }
+    private void multiplyTask(){
+        System.out.println("*");
+    }
+    private void divideTask(){
+        System.out.println("/");
     }
 }
 

@@ -24,4 +24,13 @@ public class CalculatorTest {
         Calculator calculator = new Calculator("2001");
         Assertions.assertEquals("1", calculator.divide("1002"));
     }
+    @Test
+    public void testSquare(){
+        Calculator calculator = new Calculator("103");
+        Assertions.assertEquals("11221", calculator.square());
+    }@Test
+    public void testSquareRoot(){
+        Calculator calculator = new Calculator("11221");
+        Assertions.assertEquals("103", calculator.squareRoot());
+    }
 }

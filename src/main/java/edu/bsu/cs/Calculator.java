@@ -37,5 +37,16 @@ public class Calculator {
         cache = converter.convertDecimalToQuarternary(decimalCache / decimalX);
         return cache;
     }
+    public String square(){
+        int decimalCache = converter.convertQuarternatyToDecimal(cache);
+        cache = converter.convertDecimalToQuarternary(decimalCache * decimalCache);
+        return cache;
+    }
+    public String squareRoot(){
+        int decimalCache = converter.convertQuarternatyToDecimal(cache);
+        float answer = (float) Math.sqrt(decimalCache);
+        cache = converter.convertDecimalToQuarternary((int) answer);
+        return cache;
+    }
 }
 
