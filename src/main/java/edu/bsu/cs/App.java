@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    private final TextField display = new TextField();
     private Button zero;
     private Button one;
     private Button two;
@@ -19,6 +21,8 @@ public class App extends Application {
     private Button divide;
     private Button square;
     private Button squareRoot;
+    private Button clear;
+    private Button equals;
 
     public App() {
         setButtonLabels();
@@ -55,20 +59,24 @@ public class App extends Application {
         divide = new Button("/");
         square = new Button("x²");
         squareRoot = new Button("√");
+        clear = new Button("C");
+        equals = new Button("=");
     }
-
     private Parent setCalculatorLayout() {
-        VBox calculatorUI = new VBox();
-        GridPane calculatorGrid = new GridPane();
-        calculatorGrid.add(three, 0, 0);
-        calculatorGrid.add(two, 1, 0);
-        calculatorGrid.add(one, 0, 1);
-        calculatorGrid.add(zero, 1, 1);
-        calculatorGrid.add(multiply, 2, 0);
-        calculatorGrid.add(divide, 2, 1);
-        calculatorGrid.add(add, 2, 2);
-        calculatorGrid.add(subtract, 2, 3);
-        calculatorUI.getChildren().add(calculatorGrid);
+        VBox calculatorUI = new VBox(50);
+        HBox displayArea = new HBox();
+        display.setEditable(false);
+        displayArea.getChildren().add(display);
+        HBox buttonRowOne = new HBox();
+        buttonRowOne.setFillHeight(true);
+        buttonRowOne.getChildren().addAll(zero, one, add, multiply);
+        HBox buttonRowTwo = new HBox();
+        buttonRowTwo.setFillHeight(true);
+        buttonRowTwo.getChildren().addAll(two, three, subtract, divide);
+        HBox buttonRowThree = new HBox();
+        buttonRowThree.setFillHeight(true);
+        buttonRowThree.getChildren().addAll(equals, clear, square, squareRoot);
+        calculatorUI.getChildren().addAll(displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
         return calculatorUI;
     }
 
