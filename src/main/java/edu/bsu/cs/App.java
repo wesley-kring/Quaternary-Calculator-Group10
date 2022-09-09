@@ -23,7 +23,6 @@ public class App extends Application {
         setButtonEvents();
     }
 
-    @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(setCalculatorLayout()));
         primaryStage.setTitle("Quaternary Calculator");

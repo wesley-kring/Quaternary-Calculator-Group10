@@ -2,11 +2,6 @@ package edu.bsu.cs;
 
 public class QuarternaryConverter {
 
-    public static void main(String[] args) {
-        QuarternaryConverter calculator = new QuarternaryConverter();
-        calculator.convertDecimalToQuarternary(73);
-    }
-
     public String convertDecimalToQuarternary(int decimal){
         int result;
         StringBuilder quarternary = new StringBuilder();
