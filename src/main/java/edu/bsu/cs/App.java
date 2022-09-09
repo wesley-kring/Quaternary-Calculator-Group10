@@ -99,7 +99,7 @@ public class App extends Application {
                         tempIntValues.clear();
                     }
                     else {
-                        value = !inputValuesString.isEmpty() ? Integer.parseInt(inputValuesString) : 0;//was here figuring out C
+                        value = !inputValuesString.isEmpty() ? Integer.parseInt(inputValuesString) : 0;
                     }
                     finalValuesList.add(value);
 
