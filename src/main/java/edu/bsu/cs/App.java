@@ -17,6 +17,8 @@ public class App extends Application {
     private Button subtract;
     private Button multiply;
     private Button divide;
+    private Button square;
+    private Button squareRoot;
 
     public App() {
         setButtonLabels();
@@ -38,6 +40,8 @@ public class App extends Application {
         subtract.setOnAction(event -> subtractTask());
         multiply.setOnAction(event -> multiplyTask());
         divide.setOnAction(event -> divideTask());
+        square.setOnAction(event -> squareTask());
+        square.setOnAction(event -> squareRootTask());
     }
 
     private void setButtonLabels(){
@@ -49,6 +53,8 @@ public class App extends Application {
         subtract = new Button("-");
         multiply = new Button("*");
         divide = new Button("/");
+        square = new Button("x²");
+        squareRoot = new Button("√");
     }
 
     private Parent setCalculatorLayout() {
@@ -89,6 +95,12 @@ public class App extends Application {
     }
     private void divideTask(){
         System.out.println("/");
+    }
+    private void squareTask(){
+        System.out.println("x²");
+    }
+    private void squareRootTask(){
+        System.out.println("√");
     }
 }
 
