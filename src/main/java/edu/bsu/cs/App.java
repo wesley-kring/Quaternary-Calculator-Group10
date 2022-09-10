@@ -24,8 +24,8 @@ public class App extends Application {
     private final Button subtract = new Button("-");
     private final Button multiply = new Button("*");
     private final Button divide = new Button("/");
-    private final Button square = new Button("x²");
-    private final Button squareRoot = new Button("√");
+    private final Button square = new Button("\u33A1");
+    private final Button squareRoot = new Button("\u221A");
 
 
 
