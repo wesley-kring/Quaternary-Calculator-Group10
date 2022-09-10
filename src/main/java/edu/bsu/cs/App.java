@@ -5,8 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,7 +12,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     private String operaton;
     private StringBuilder displayText = new StringBuilder();
-    private Calculator calculator = new Calculator("0");
+    private final Calculator calculator = new Calculator("0");
     private final TextField display = new TextField();
     private final Button zero = new Button("0");
     private final Button one = new Button("1");
@@ -197,4 +195,3 @@ public class App extends Application {
         }
     }
 }
-
