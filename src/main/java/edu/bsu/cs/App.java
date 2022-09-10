@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    private String operaton;
     private StringBuilder displayText = new StringBuilder();
     private Calculator calculator = new Calculator("0");
     private final TextField display = new TextField();
@@ -21,13 +22,12 @@ public class App extends Application {
     private final Button three = new Button("3");
     private final Button clear = new Button("C");
     private final Button equals = new Button("=");
-    ToggleGroup operations = new ToggleGroup();
-    private final ToggleButton add = new ToggleButton("+");
-    private final ToggleButton subtract = new ToggleButton("-");
-    private final ToggleButton multiply = new ToggleButton("*");
-    private final ToggleButton divide = new ToggleButton("/");
-    private final ToggleButton square = new ToggleButton("x²");
-    private final ToggleButton squareRoot = new ToggleButton("√");
+    private final Button add = new Button("+");
+    private final Button subtract = new Button("-");
+    private final Button multiply = new Button("*");
+    private final Button divide = new Button("/");
+    private final Button square = new Button("x²");
+    private final Button squareRoot = new Button("√");
 
 
 
@@ -38,24 +38,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(setCalculatorLayout()));
         primaryStage.setTitle("Quaternary Calculator");
-        addToggleGroup();
         primaryStage.show();
-    }
-
-    public void addToggleGroup(){
-        add.setSelected(true);
-        add.setUserData("+");
-        add.setToggleGroup(operations);
-        subtract.setUserData("-");
-        subtract.setToggleGroup(operations);
-        multiply.setUserData("*");
-        multiply.setToggleGroup(operations);
-        divide.setUserData("/");
-        divide.setToggleGroup(operations);
-        square.setUserData("^2");
-        square.setToggleGroup(operations);
-        squareRoot.setUserData("^1/2");
-        squareRoot.setToggleGroup(operations);
     }
 
     private void setButtonEvents(){
@@ -64,6 +47,14 @@ public class App extends Application {
         two.setOnAction(event -> twoTask());
         three.setOnAction(event -> threeTask());
         clear.setOnAction(event -> clearTask());
+        equals.setOnAction(event -> equalsTask());
+        add.setOnAction(event -> addTask());
+        subtract.setOnAction(event -> subtractTask());
+        multiply.setOnAction(event -> multiplyTask());
+        divide.setOnAction(event -> divideTask());
+        square.setOnAction(event -> squareTask());
+        squareRoot.setOnAction(event -> squareRootTask());
+
     }
 
     private Parent setCalculatorLayout() {
@@ -100,9 +91,77 @@ public class App extends Application {
         displayText.append("3");
         display.setText(displayText.toString());
     }
-    private void clearTask(){
+    private void addTask(){
+        operaton = "+";
+        calculator.cacheNumber(displayText.toString());
         displayText = new StringBuilder();
         display.setText(displayText.toString());
+    }
+    private void subtractTask(){
+        operaton = "-";
+        calculator.cacheNumber(displayText.toString());
+        displayText = new StringBuilder();
+        display.setText(displayText.toString());
+    }
+    private void multiplyTask(){
+        operaton = "*";
+        calculator.cacheNumber(displayText.toString());
+        displayText = new StringBuilder();
+        display.setText(displayText.toString());
+    }
+    private void divideTask(){
+        operaton = "/";
+        calculator.cacheNumber(displayText.toString());
+        displayText = new StringBuilder();
+        display.setText(displayText.toString());
+    }
+    private void squareTask(){
+        operaton = "^2";
+        calculator.cacheNumber(displayText.toString());
+        displayText = new StringBuilder(calculator.square());
+        display.setText(displayText.toString());
+    }
+    private void squareRootTask(){
+        operaton = "^1/2";
+        calculator.cacheNumber(displayText.toString());
+        displayText = new StringBuilder(calculator.squareRoot());
+        display.setText(displayText.toString());
+    }
+    private void clearTask(){
+        if(displayText.toString().equals("")) {
+            calculator.cacheNumber(displayText.toString());
+        }
+        displayText = new StringBuilder();
+        display.setText(displayText.toString());
+    }
+    private void equalsTask(){
+        switch (operaton) {
+            case "+" -> {
+                displayText = new StringBuilder(calculator.add(displayText.toString()));
+                display.setText(displayText.toString());
+            }
+            case "-" -> {
+                displayText = new StringBuilder(calculator.subtract(displayText.toString()));
+                display.setText(displayText.toString());
+            }
+            case "*" -> {
+                displayText = new StringBuilder(calculator.multiply(displayText.toString()));
+                display.setText(displayText.toString());
+            }
+            case "/" -> {
+                displayText = new StringBuilder(calculator.divide(displayText.toString()));
+                display.setText(displayText.toString());
+            }
+            case "^2" -> {
+                displayText = new StringBuilder(calculator.square());
+                display.setText(displayText.toString());
+            }
+            case "^1/2" -> {
+                displayText = new StringBuilder(calculator.squareRoot());
+                display.setText(displayText.toString());
+            }
+            default -> display.setText(displayText.toString());
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 package edu.bsu.cs;
 
 public class Calculator {
-    public String currentNum;
     public String cache;
     QuarternaryConverter converter = new QuarternaryConverter();
 
