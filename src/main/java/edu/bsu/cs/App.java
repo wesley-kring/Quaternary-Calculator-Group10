@@ -5,34 +5,57 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    private StringBuilder displayText = new StringBuilder();
+    private Calculator calculator = new Calculator("0");
     private final TextField display = new TextField();
-    private Button zero;
-    private Button one;
-    private Button two;
-    private Button three;
-    private Button add;
-    private Button subtract;
-    private Button multiply;
-    private Button divide;
-    private Button square;
-    private Button squareRoot;
-    private Button clear;
-    private Button equals;
+    private final Button zero = new Button("0");
+    private final Button one = new Button("1");
+    private final Button two = new Button("2");
+    private final Button three = new Button("3");
+    private final Button clear = new Button("C");
+    private final Button equals = new Button("=");
+    ToggleGroup operations = new ToggleGroup();
+    private final ToggleButton add = new ToggleButton("+");
+    private final ToggleButton subtract = new ToggleButton("-");
+    private final ToggleButton multiply = new ToggleButton("*");
+    private final ToggleButton divide = new ToggleButton("/");
+    private final ToggleButton square = new ToggleButton("x²");
+    private final ToggleButton squareRoot = new ToggleButton("√");
+
+
 
     public App() {
-        setButtonLabels();
         setButtonEvents();
     }
 
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(setCalculatorLayout()));
         primaryStage.setTitle("Quaternary Calculator");
+        addToggleGroup();
         primaryStage.show();
+    }
+
+    public void addToggleGroup(){
+        add.setSelected(true);
+        add.setUserData("+");
+        add.setToggleGroup(operations);
+        subtract.setUserData("-");
+        subtract.setToggleGroup(operations);
+        multiply.setUserData("*");
+        multiply.setToggleGroup(operations);
+        divide.setUserData("/");
+        divide.setToggleGroup(operations);
+        square.setUserData("^2");
+        square.setToggleGroup(operations);
+        squareRoot.setUserData("^1/2");
+        squareRoot.setToggleGroup(operations);
     }
 
     private void setButtonEvents(){
@@ -40,28 +63,9 @@ public class App extends Application {
         one.setOnAction(event -> oneTask());
         two.setOnAction(event -> twoTask());
         three.setOnAction(event -> threeTask());
-        add.setOnAction(event -> addTask());
-        subtract.setOnAction(event -> subtractTask());
-        multiply.setOnAction(event -> multiplyTask());
-        divide.setOnAction(event -> divideTask());
-        square.setOnAction(event -> squareTask());
-        square.setOnAction(event -> squareRootTask());
+        clear.setOnAction(event -> clearTask());
     }
 
-    private void setButtonLabels(){
-        zero = new Button("0");
-        one = new Button("1");
-        two = new Button("2");
-        three = new Button("3");
-        add = new Button("+");
-        subtract = new Button("-");
-        multiply = new Button("*");
-        divide = new Button("/");
-        square = new Button("x²");
-        squareRoot = new Button("√");
-        clear = new Button("C");
-        equals = new Button("=");
-    }
     private Parent setCalculatorLayout() {
         VBox calculatorUI = new VBox(50);
         HBox displayArea = new HBox();
@@ -81,34 +85,24 @@ public class App extends Application {
     }
 
     private void zeroTask(){
-        System.out.println("0");
+        displayText.append("0");
+        display.setText(displayText.toString());
     }
     private void oneTask(){
-        System.out.println("1");
+        displayText.append("1");
+        display.setText(displayText.toString());
     }
     private void twoTask(){
-        System.out.println("2");
+        displayText.append("2");
+        display.setText(displayText.toString());
     }
     private void threeTask(){
-        System.out.println("3");
+        displayText.append("3");
+        display.setText(displayText.toString());
     }
-    private void addTask(){
-        System.out.println("+");
-    }
-    private void subtractTask(){
-        System.out.println("-");
-    }
-    private void multiplyTask(){
-        System.out.println("*");
-    }
-    private void divideTask(){
-        System.out.println("/");
-    }
-    private void squareTask(){
-        System.out.println("x²");
-    }
-    private void squareRootTask(){
-        System.out.println("√");
+    private void clearTask(){
+        displayText = new StringBuilder();
+        display.setText(displayText.toString());
     }
 }
 
