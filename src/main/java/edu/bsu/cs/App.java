@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.ToggleButton;
 
 public class App extends Application {
     private String operaton;
@@ -26,6 +27,7 @@ public class App extends Application {
     private final Button divide = new Button("/");
     private final Button square = new Button("\u33A1");
     private final Button squareRoot = new Button("\u221A");
+    private final ToggleButton decimal = new ToggleButton("decimal");
 
 
 
@@ -52,7 +54,7 @@ public class App extends Application {
         divide.setOnAction(event -> divideTask());
         square.setOnAction(event -> squareTask());
         squareRoot.setOnAction(event -> squareRootTask());
-
+        //decimal.setOnAction(event -> decimalTask());
     }
 
     private Parent setCalculatorLayout() {
@@ -61,8 +63,10 @@ public class App extends Application {
         displayArea.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
         display.setEditable(false);
         display.prefHeightProperty().bind(displayArea.heightProperty());
-        display.prefWidthProperty().bind(displayArea.widthProperty());
-        displayArea.getChildren().add(display);
+        display.prefWidthProperty().bind(displayArea.widthProperty().multiply(.75));
+        decimal.prefHeightProperty().bind(displayArea.heightProperty());
+        decimal.prefWidthProperty().bind(displayArea.widthProperty().multiply(.25));
+        displayArea.getChildren().addAll(display, decimal);
 
         HBox buttonRowOne = new HBox();
         buttonRowOne.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
