@@ -58,21 +58,54 @@ public class App extends Application {
     }
 
     private Parent setCalculatorLayout() {
-        VBox calculatorUI = new VBox(50);
+        VBox calculatorUi = new VBox();
         HBox displayArea = new HBox();
+        displayArea.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
         display.setEditable(false);
+        display.prefHeightProperty().bind(displayArea.heightProperty());
+        display.prefWidthProperty().bind(displayArea.widthProperty());
         displayArea.getChildren().add(display);
+
         HBox buttonRowOne = new HBox();
-        buttonRowOne.setFillHeight(true);
+        buttonRowOne.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
         buttonRowOne.getChildren().addAll(zero, one, add, multiply);
+        zero.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
+        one.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
+        add.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
+        multiply.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
+        zero.prefHeightProperty().bind(buttonRowOne.heightProperty());
+        one.prefHeightProperty().bind(buttonRowOne.heightProperty());
+        add.prefHeightProperty().bind(buttonRowOne.heightProperty());
+        multiply.prefHeightProperty().bind(buttonRowOne.heightProperty());
+
         HBox buttonRowTwo = new HBox();
-        buttonRowTwo.setFillHeight(true);
+        buttonRowTwo.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
         buttonRowTwo.getChildren().addAll(two, three, subtract, divide);
+        two.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
+        three.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
+        subtract.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
+        divide.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
+        two.prefHeightProperty().bind(buttonRowTwo.heightProperty());
+        three.prefHeightProperty().bind(buttonRowTwo.heightProperty());
+        subtract.prefHeightProperty().bind(buttonRowTwo.heightProperty());
+        divide.prefHeightProperty().bind(buttonRowTwo.heightProperty());
+
         HBox buttonRowThree = new HBox();
-        buttonRowThree.setFillHeight(true);
+        buttonRowThree.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
         buttonRowThree.getChildren().addAll(equals, clear, square, squareRoot);
-        calculatorUI.getChildren().addAll(displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
-        return calculatorUI;
+        equals.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
+        clear.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
+        square.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
+        squareRoot.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
+        equals.prefHeightProperty().bind(buttonRowThree.heightProperty());
+        clear.prefHeightProperty().bind(buttonRowThree.heightProperty());
+        square.prefHeightProperty().bind(buttonRowThree.heightProperty());
+        squareRoot.prefHeightProperty().bind(buttonRowThree.heightProperty());
+
+
+        calculatorUi.getChildren().addAll(displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
+        calculatorUi.setMinSize(300, 400);
+        return calculatorUi;
     }
 
     private void zeroTask(){
