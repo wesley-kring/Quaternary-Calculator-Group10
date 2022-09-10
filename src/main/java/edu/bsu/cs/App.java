@@ -70,7 +70,7 @@ public class App extends Application {
         divide.setOnAction(event -> divideTask());
         square.setOnAction(event -> squareTask());
         squareRoot.setOnAction(event -> squareRootTask());
-        //decimal.setOnAction(event -> decimalTask());
+        ///decimal.setOnAction(event -> decimalTask());
     }
 
     //Creating the scene to be called in the start method
