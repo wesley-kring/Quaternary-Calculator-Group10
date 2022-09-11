@@ -9,6 +9,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class App extends Application {
     /* This is a placeholder value for what operation will be
     performed when the enter button is pressed */
@@ -25,26 +28,28 @@ public class App extends Application {
     //Display for where the strings will be shown
     private final TextField display = new TextField();
     //Number buttons, add a single character to the display text stringBuilder
-    private final Button zero = new Button("0");
-    private final Button one = new Button("1");
-    private final Button two = new Button("2");
-    private final Button three = new Button("3");
+    private final Button zeroButton = new Button("0");
+    private final Button oneButton = new Button("1");
+    private final Button twoButton = new Button("2");
+    private final Button threeButton = new Button("3");
     //The operation buttons are used to change the state of the operation placeholder
-    private final Button add = new Button("+");
-    private final Button subtract = new Button("-");
-    private final Button multiply = new Button("*");
-    private final Button divide = new Button("/");
-    private final Button square = new Button("\u33A1");
-    private final Button squareRoot = new Button("\u221A");
+    private final Button addButton = new Button("+");
+    private final Button subtractButton = new Button("-");
+    private final Button multiplyButton = new Button("*");
+    private final Button divideButton = new Button("/");
+    private final Button squareButton = new Button("\u33A1");
+    private final Button squareRootButton = new Button("\u221A");
 
 
     /*Equals button gets the operator and the display text and adds it
     to the cached number in the calculator object*/
-    private final Button equals = new Button("=");
+    private final Button equalsButton = new Button("=");
     /*The clear button will clear the display text, if there is no display
     text, the clear button clears the cached number in the calculator*/
-    private final Button clear = new Button("C");
+    private final Button clearButton = new Button("C");
     private final ToggleButton toDecimalButton = new ToggleButton("DECIMAL");
+    private final List<String> operations = Arrays.asList("+", "-", "*", "/", "^2", "^1/2");
+    private final VBox calculatorUi = new VBox();
 
     public App() {
         connectButtonEvents();
@@ -58,176 +63,52 @@ public class App extends Application {
 
     //Connecting all of the buttons with the methods that they need
     private void connectButtonEvents(){
-        zero.setOnAction(event -> zeroTask());
-        one.setOnAction(event -> oneTask());
-        two.setOnAction(event -> twoTask());
-        three.setOnAction(event -> threeTask());
-        clear.setOnAction(event -> clearTask());
-        equals.setOnAction(event -> equalsTask());
-        add.setOnAction(event -> addTask());
-        subtract.setOnAction(event -> subtractTask());
-        multiply.setOnAction(event -> multiplyTask());
-        divide.setOnAction(event -> divideTask());
-        square.setOnAction(event -> squareTask());
-        squareRoot.setOnAction(event -> squareRootTask());
+        zeroButton.setOnAction(event -> addToCalculator("0"));
+        oneButton.setOnAction(event -> addToCalculator("1"));
+        twoButton.setOnAction(event -> addToCalculator("2"));
+        threeButton.setOnAction(event -> addToCalculator("3"));
+        clearButton.setOnAction(event -> clearDisplay());
+        equalsButton.setOnAction(event -> equalsTask());
+        addButton.setOnAction(event -> addToCalculator("+"));
+        subtractButton.setOnAction(event -> addToCalculator("-"));
+        multiplyButton.setOnAction(event -> addToCalculator("*"));
+        divideButton.setOnAction(event -> addToCalculator("/"));
+        squareButton.setOnAction(event -> addToCalculator("^2"));
+        squareRootButton.setOnAction(event -> addToCalculator("^1/2"));
         toDecimalButton.setOnAction(event -> toggleView());
     }
 
     //Creating the scene to be called in the start method
     private Parent setCalculatorLayout() {
-        //The VBox that will contain all of the elements of the scene
-        VBox calculatorUi = new VBox();
-
-        HBox decimalButtonHBox = new HBox();
-        decimalButtonHBox.getChildren().add(toDecimalButton);
-
-        HBox toggleButtonArea = new HBox();
-        toggleButtonArea.getChildren().addAll(decimalButtonHBox);
-        toggleButtonArea.setAlignment(Pos.BASELINE_RIGHT);
-        toDecimalButton.setMinWidth(100);
-
-        //The HBox that will contain the display TextField
-        HBox displayArea = new HBox();
-        //Setting the height to 1/4 the height of the scene
-        displayArea.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
-        display.setEditable(false);
-        //Binding the textField to the size of the HBox
-        display.prefHeightProperty().bind(displayArea.heightProperty());
-        display.prefWidthProperty().bind(displayArea.widthProperty());
-
-        displayArea.getChildren().addAll(display);
-
-        HBox buttonRowOne = new HBox();
-        //Binding the height of the HBox to 1/4 the height of the scene
-        buttonRowOne.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
-        buttonRowOne.getChildren().addAll(zero, one, add, multiply);
-        //Setting the width of the buttons to 1/4 the width of the row (because there are 4 buttons)
-        zero.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
-        one.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
-        add.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
-        multiply.prefWidthProperty().bind(buttonRowOne.widthProperty().multiply(.25));
-        //Setting the height of the buttons to the height of the row
-        zero.prefHeightProperty().bind(buttonRowOne.heightProperty());
-        one.prefHeightProperty().bind(buttonRowOne.heightProperty());
-        add.prefHeightProperty().bind(buttonRowOne.heightProperty());
-        multiply.prefHeightProperty().bind(buttonRowOne.heightProperty());
-
-        HBox buttonRowTwo = new HBox();
-        //Binding the height of the HBox to 1/4 the height of the scene
-        buttonRowTwo.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
-        buttonRowTwo.getChildren().addAll(two, three, subtract, divide);
-        //Setting the width of the buttons to 1/4 the width of the row (because there are 4 buttons)
-        two.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
-        three.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
-        subtract.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
-        divide.prefWidthProperty().bind(buttonRowTwo.widthProperty().multiply(.25));
-        //Setting the height of the buttons to the height of the row
-        two.prefHeightProperty().bind(buttonRowTwo.heightProperty());
-        three.prefHeightProperty().bind(buttonRowTwo.heightProperty());
-        subtract.prefHeightProperty().bind(buttonRowTwo.heightProperty());
-        divide.prefHeightProperty().bind(buttonRowTwo.heightProperty());
-
-        HBox buttonRowThree = new HBox();
-        //Binding the height of the HBox to 1/4 the height of the scene
-        buttonRowThree.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
-        buttonRowThree.getChildren().addAll(equals, clear, square, squareRoot);
-        //Setting the width of the buttons to 1/4 the width of the row (because there are 4 buttons)
-        equals.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
-        clear.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
-        square.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
-        squareRoot.prefWidthProperty().bind(buttonRowThree.widthProperty().multiply(.25));
-        //Setting the height of the buttons to the height of the row
-        equals.prefHeightProperty().bind(buttonRowThree.heightProperty());
-        clear.prefHeightProperty().bind(buttonRowThree.heightProperty());
-        square.prefHeightProperty().bind(buttonRowThree.heightProperty());
-        squareRoot.prefHeightProperty().bind(buttonRowThree.heightProperty());
+        List<Button> buttonList1 = Arrays.asList(zeroButton, oneButton, addButton, multiplyButton);
+        List<Button> buttonList2 = Arrays.asList(twoButton, threeButton, subtractButton, divideButton);
+        List<Button> buttonList3 = Arrays.asList(equalsButton, clearButton, squareButton, squareRootButton);
 
         //Adding all rows to the scene
-        calculatorUi.getChildren().addAll(toggleButtonArea, displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
+        calculatorUi.getChildren().addAll(createToggleArea(), createDisplayArea(), createButtonRow(buttonList1), createButtonRow(buttonList2), createButtonRow(buttonList3));
         calculatorUi.setMinSize(300, 400);
         return calculatorUi;
     }
 
-    //Creating the tasks for all the buttons
-    //Number buttons add a digit to the end of the displayText StringBuilder
-    private void zeroTask(){
-        if (isQuaternaryView) {
-            displayText.append("0");
-            display.setText(displayText.toString());
-        }
-    }
-    private void oneTask(){
-        if (isQuaternaryView) {
-            displayText.append("1");
-            display.setText(displayText.toString());
-        }
-    }
-    private void twoTask(){
-        if (isQuaternaryView) {
-            displayText.append("2");
-            display.setText(displayText.toString());
-        }
 
-    }
-    private void threeTask(){
+    private void addToCalculator(String value) {
         if (isQuaternaryView) {
-            displayText.append("3");
+            //check if value is operation or not
+            if (operations.contains(value)) {
+                operation = value;
+                calculator.cacheNumber(displayText.toString());
+                displayText = new StringBuilder();
+            }
+            else {
+                displayText.append(value);
+            }
             display.setText(displayText.toString());
-        }
 
-    }
-    //Operator buttons change the status of the operator string to their respective operation
-    private void addTask(){
-        if(isQuaternaryView) {
-            operation = "+";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder();
-            display.setText(displayText.toString());
         }
     }
-    private void subtractTask(){
-        if(isQuaternaryView) {
-            operation = "-";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder();
-            display.setText(displayText.toString());
-        }
-    }
-    private void multiplyTask(){
-        if(isQuaternaryView) {
-            operation = "*";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder();
-            display.setText(displayText.toString());
-        }
-    }
-    private void divideTask(){
-        if(isQuaternaryView) {
-            operation = "/";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder();
-            display.setText(displayText.toString());
-        }
-    }
-    private void squareTask(){
-        if(isQuaternaryView) {
-            operation = "^2";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder(calculator.square());
-            display.setText(displayText.toString());
-        }
-    }
-    private void squareRootTask(){
-        if(isQuaternaryView) {
-            operation = "^1/2";
-            calculator.cacheNumber(displayText.toString());
-            displayText = new StringBuilder(calculator.squareRoot());
-            display.setText(displayText.toString());
-        }
 
-    }
     //Clear task clears the displayText
-    private void clearTask(){
+    private void clearDisplay(){
         if(isQuaternaryView) {
             //If the display text is empty clear the cached string in the Calculator
             if(displayText.toString().equals("")) {
@@ -280,5 +161,39 @@ public class App extends Application {
         }
         displayText = new StringBuilder(display.getText());
 
+    }
+
+    private HBox createToggleArea() {
+        HBox toggleHBox = new HBox();
+        toggleHBox.getChildren().addAll(toDecimalButton);
+        toggleHBox.setAlignment(Pos.BASELINE_RIGHT);
+        return toggleHBox;
+    }
+
+    private HBox createDisplayArea() {
+        //The HBox that will contain the display TextField
+        HBox displayArea = new HBox();
+        //Setting the height to 1/4 the height of the scene
+        displayArea.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
+        display.setEditable(false);
+        //Binding the textField to the size of the HBox
+        display.prefHeightProperty().bind(displayArea.heightProperty());
+        display.prefWidthProperty().bind(displayArea.widthProperty());
+        displayArea.getChildren().addAll(display);
+        return displayArea;
+    }
+
+    private HBox createButtonRow(List<Button> buttons) {
+        HBox buttonRow = new HBox();
+        //Binding the height of the HBox to 1/4 the height of the scene
+        buttonRow.prefHeightProperty().bind(calculatorUi.heightProperty().multiply(.25));
+        for (Button button : buttons) {
+            //Setting the width of the buttons to 1/4 the width of the row (because there are 4 buttons)
+            button.prefWidthProperty().bind(buttonRow.widthProperty().multiply(.25));
+            //Setting the height of the buttons to the height of the row
+            button.prefHeightProperty().bind(buttonRow.heightProperty());
+        }
+        buttonRow.getChildren().addAll(buttons);
+        return buttonRow;
     }
 }
