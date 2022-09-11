@@ -151,105 +151,134 @@ public class App extends Application {
     //Creating the tasks for all the buttons
     //Number buttons add a digit to the end of the displayText StringBuilder
     private void zeroTask(){
-        displayText.append("0");
-        display.setText(displayText.toString());
+        if (isQuaternaryView) {
+            displayText.append("0");
+            display.setText(displayText.toString());
+        }
     }
     private void oneTask(){
-        displayText.append("1");
-        display.setText(displayText.toString());
+        if (isQuaternaryView) {
+            displayText.append("1");
+            display.setText(displayText.toString());
+        }
     }
     private void twoTask(){
-        displayText.append("2");
-        display.setText(displayText.toString());
+        if (isQuaternaryView) {
+            displayText.append("2");
+            display.setText(displayText.toString());
+        }
+
     }
     private void threeTask(){
-        displayText.append("3");
-        display.setText(displayText.toString());
+        if (isQuaternaryView) {
+            displayText.append("3");
+            display.setText(displayText.toString());
+        }
+
     }
     //Operator buttons change the status of the operator string to their respective operation
     private void addTask(){
-        operaton = "+";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder();
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "+";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder();
+            display.setText(displayText.toString());
+        }
     }
     private void subtractTask(){
-        operaton = "-";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder();
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "-";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder();
+            display.setText(displayText.toString());
+        }
     }
     private void multiplyTask(){
-        operaton = "*";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder();
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "*";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder();
+            display.setText(displayText.toString());
+        }
     }
     private void divideTask(){
-        operaton = "/";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder();
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "/";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder();
+            display.setText(displayText.toString());
+        }
     }
     private void squareTask(){
-        operaton = "^2";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder(calculator.square());
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "^2";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder(calculator.square());
+            display.setText(displayText.toString());
+        }
     }
     private void squareRootTask(){
-        operaton = "^1/2";
-        calculator.cacheNumber(displayText.toString());
-        displayText = new StringBuilder(calculator.squareRoot());
-        display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            operaton = "^1/2";
+            calculator.cacheNumber(displayText.toString());
+            displayText = new StringBuilder(calculator.squareRoot());
+            display.setText(displayText.toString());
+        }
+
     }
     //Clear task clears the displayText
     private void clearTask(){
-        //If the display text is empty clear the cached string in the Calculator
-        if(displayText.toString().equals("")) {
-            calculator.cacheNumber(displayText.toString());
+        if(isQuaternaryView) {
+            //If the display text is empty clear the cached string in the Calculator
+            if(displayText.toString().equals("")) {
+                calculator.cacheNumber(displayText.toString());
+            }
+            displayText = new StringBuilder();
+            display.setText(displayText.toString());
         }
-        displayText = new StringBuilder();
-        display.setText(displayText.toString());
+
     }
     private void equalsTask(){
-        //Switch case will look at the value of the operation String and perform the according operation
-        switch (operaton) {
-            case "+" -> {
-                displayText = new StringBuilder(calculator.add(displayText.toString()));
-                display.setText(displayText.toString());
+        if(isQuaternaryView) {
+            switch (operaton) {
+                case "+" -> {
+                    displayText = new StringBuilder(calculator.add(displayText.toString()));
+                    display.setText(displayText.toString());
+                }
+                case "-" -> {
+                    displayText = new StringBuilder(calculator.subtract(displayText.toString()));
+                    display.setText(displayText.toString());
+                }
+                case "*" -> {
+                    displayText = new StringBuilder(calculator.multiply(displayText.toString()));
+                    display.setText(displayText.toString());
+                }
+                case "/" -> {
+                    displayText = new StringBuilder(calculator.divide(displayText.toString()));
+                    display.setText(displayText.toString());
+                }
+                case "^2" -> {
+                    displayText = new StringBuilder(calculator.square());
+                    display.setText(displayText.toString());
+                }
+                case "^1/2" -> {
+                    displayText = new StringBuilder(calculator.squareRoot());
+                    display.setText(displayText.toString());
+                }
+                default -> display.setText(displayText.toString());
             }
-            case "-" -> {
-                displayText = new StringBuilder(calculator.subtract(displayText.toString()));
-                display.setText(displayText.toString());
-            }
-            case "*" -> {
-                displayText = new StringBuilder(calculator.multiply(displayText.toString()));
-                display.setText(displayText.toString());
-            }
-            case "/" -> {
-                displayText = new StringBuilder(calculator.divide(displayText.toString()));
-                display.setText(displayText.toString());
-            }
-            case "^2" -> {
-                displayText = new StringBuilder(calculator.square());
-                display.setText(displayText.toString());
-            }
-            case "^1/2" -> {
-                displayText = new StringBuilder(calculator.squareRoot());
-                display.setText(displayText.toString());
-            }
-            default -> display.setText(displayText.toString());
         }
+        //Switch case will look at the value of the operation String and perform the according operation
+
     }
     private void toggleView() {
         isQuaternaryView = !isQuaternaryView;
-        displayText = new StringBuilder(display.getText());
         if(!displayText.isEmpty()) {
             display.setText(isQuaternaryView
                     ? calculator.converter.convertDecimalToQuarternary(Integer.parseInt(String.valueOf(displayText)))
                     : String.valueOf(calculator.converter.convertQuarternatyToDecimal(String.valueOf(displayText))));
         }
+        displayText = new StringBuilder(display.getText());
 
     }
 }
