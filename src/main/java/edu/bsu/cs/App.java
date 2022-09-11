@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     /* This is a placeholder value for what operation will be
     performed when the enter button is pressed */
-    private String operaton;
+    private String operation;
     /* Placeholder value for the numbers on the display, gets updated
     every time a number button is pressed */
     private StringBuilder displayText = new StringBuilder();
@@ -179,7 +179,7 @@ public class App extends Application {
     //Operator buttons change the status of the operator string to their respective operation
     private void addTask(){
         if(isQuaternaryView) {
-            operaton = "+";
+            operation = "+";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder();
             display.setText(displayText.toString());
@@ -187,7 +187,7 @@ public class App extends Application {
     }
     private void subtractTask(){
         if(isQuaternaryView) {
-            operaton = "-";
+            operation = "-";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder();
             display.setText(displayText.toString());
@@ -195,7 +195,7 @@ public class App extends Application {
     }
     private void multiplyTask(){
         if(isQuaternaryView) {
-            operaton = "*";
+            operation = "*";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder();
             display.setText(displayText.toString());
@@ -203,7 +203,7 @@ public class App extends Application {
     }
     private void divideTask(){
         if(isQuaternaryView) {
-            operaton = "/";
+            operation = "/";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder();
             display.setText(displayText.toString());
@@ -211,7 +211,7 @@ public class App extends Application {
     }
     private void squareTask(){
         if(isQuaternaryView) {
-            operaton = "^2";
+            operation = "^2";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder(calculator.square());
             display.setText(displayText.toString());
@@ -219,7 +219,7 @@ public class App extends Application {
     }
     private void squareRootTask(){
         if(isQuaternaryView) {
-            operaton = "^1/2";
+            operation = "^1/2";
             calculator.cacheNumber(displayText.toString());
             displayText = new StringBuilder(calculator.squareRoot());
             display.setText(displayText.toString());
@@ -240,7 +240,7 @@ public class App extends Application {
     }
     private void equalsTask(){
         if(isQuaternaryView) {
-            switch (operaton) {
+            switch (operation) {
                 case "+" -> {
                     displayText = new StringBuilder(calculator.add(displayText.toString()));
                     display.setText(displayText.toString());
@@ -275,8 +275,8 @@ public class App extends Application {
         isQuaternaryView = !isQuaternaryView;
         if(!displayText.isEmpty()) {
             display.setText(isQuaternaryView
-                    ? calculator.converter.convertDecimalToQuarternary(Integer.parseInt(String.valueOf(displayText)))
-                    : String.valueOf(calculator.converter.convertQuarternatyToDecimal(String.valueOf(displayText))));
+                    ? calculator.converter.convertDecimalToQuaternary(Integer.parseInt(String.valueOf(displayText)))
+                    : String.valueOf(calculator.converter.convertQuaternaryToDecimal(String.valueOf(displayText))));
         }
         displayText = new StringBuilder(display.getText());
 

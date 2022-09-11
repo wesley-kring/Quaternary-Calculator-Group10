@@ -2,49 +2,49 @@ package edu.bsu.cs;
 
 public class Calculator {
     public String cache;
-    QuarternaryConverter converter = new QuarternaryConverter();
+    QuaternaryConverter converter = new QuaternaryConverter();
 
     public Calculator(String cache){
         this.cache = cache;
     }
 
-    public void cacheNumber(String quarternary){
-        cache = quarternary;
+    public void cacheNumber(String quaternary){
+        cache = quaternary;
     }
 
     public String add(String quaternaryX){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
-        int decimalX = converter.convertQuarternatyToDecimal(quaternaryX);
-        cache = converter.convertDecimalToQuarternary(decimalCache + decimalX);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
+        int decimalX = converter.convertQuaternaryToDecimal(quaternaryX);
+        cache = converter.convertDecimalToQuaternary(decimalCache + decimalX);
         return cache;
     }
     public String subtract(String quaternaryX){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
-        int decimalX = converter.convertQuarternatyToDecimal(quaternaryX);
-        cache = converter.convertDecimalToQuarternary(decimalCache - decimalX);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
+        int decimalX = converter.convertQuaternaryToDecimal(quaternaryX);
+        cache = converter.convertDecimalToQuaternary(decimalCache - decimalX);
         return cache;
     }
     public String multiply(String quaternaryX){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
-        int decimalX = converter.convertQuarternatyToDecimal(quaternaryX);
-        cache = converter.convertDecimalToQuarternary(decimalCache * decimalX);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
+        int decimalX = converter.convertQuaternaryToDecimal(quaternaryX);
+        cache = converter.convertDecimalToQuaternary(decimalCache * decimalX);
         return cache;
     }
     public String divide(String quaternaryX){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
-        int decimalX = converter.convertQuarternatyToDecimal(quaternaryX);
-        cache = converter.convertDecimalToQuarternary(decimalCache / decimalX);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
+        int decimalX = converter.convertQuaternaryToDecimal(quaternaryX);
+        cache = converter.convertDecimalToQuaternary(decimalCache / decimalX);
         return cache;
     }
     public String square(){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
-        cache = converter.convertDecimalToQuarternary(decimalCache * decimalCache);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
+        cache = converter.convertDecimalToQuaternary(decimalCache * decimalCache);
         return cache;
     }
     public String squareRoot(){
-        int decimalCache = converter.convertQuarternatyToDecimal(cache);
+        int decimalCache = converter.convertQuaternaryToDecimal(cache);
         float answer = (float) Math.sqrt(decimalCache);
-        cache = converter.convertDecimalToQuarternary((int) answer);
+        cache = converter.convertDecimalToQuaternary((int) answer);
         return cache;
     }
 }
