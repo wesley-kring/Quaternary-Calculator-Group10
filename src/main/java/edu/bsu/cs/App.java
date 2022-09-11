@@ -136,6 +136,11 @@ public class App extends Application {
                 displayText = new StringBuilder(calculator.cache);
                 display.setText(displayText.toString());
             }
+            else if(displayText.toString().equals(calculator.cache)){
+                calculator.cacheNumber("");
+                displayText = new StringBuilder();
+                display.setText(displayText.toString());
+            }
             else{
                 displayText = new StringBuilder();
                 display.setText(displayText.toString());
