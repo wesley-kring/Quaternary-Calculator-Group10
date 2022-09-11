@@ -1,14 +1,13 @@
 package edu.bsu.cs;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.ToggleButton;
 
 public class App extends Application {
     /* This is a placeholder value for what operation will be
@@ -17,6 +16,7 @@ public class App extends Application {
     /* Placeholder value for the numbers on the display, gets updated
     every time a number button is pressed */
     private StringBuilder displayText = new StringBuilder();
+    private boolean isQuaternaryView = true;
     /* This is the calculator class that will be handling all the logic
     for the calculator computations
 
@@ -36,7 +36,6 @@ public class App extends Application {
     private final Button divide = new Button("/");
     private final Button square = new Button("\u33A1");
     private final Button squareRoot = new Button("\u221A");
-    private final ToggleButton decimal = new ToggleButton("decimal");
 
 
     /*Equals button gets the operator and the display text and adds it
@@ -45,6 +44,7 @@ public class App extends Application {
     /*The clear button will clear the display text, if there is no display
     text, the clear button clears the cached number in the calculator*/
     private final Button clear = new Button("C");
+    private final ToggleButton toDecimalButton = new ToggleButton("DECIMAL");
 
     public App() {
         connectButtonEvents();
@@ -70,13 +70,21 @@ public class App extends Application {
         divide.setOnAction(event -> divideTask());
         square.setOnAction(event -> squareTask());
         squareRoot.setOnAction(event -> squareRootTask());
-        ///decimal.setOnAction(event -> decimalTask());
+        toDecimalButton.setOnAction(event -> toggleView());
     }
 
     //Creating the scene to be called in the start method
     private Parent setCalculatorLayout() {
         //The VBox that will contain all of the elements of the scene
         VBox calculatorUi = new VBox();
+
+        HBox decimalButtonHBox = new HBox();
+        decimalButtonHBox.getChildren().add(toDecimalButton);
+
+        HBox toggleButtonArea = new HBox();
+        toggleButtonArea.getChildren().addAll(decimalButtonHBox);
+        toggleButtonArea.setAlignment(Pos.BASELINE_RIGHT);
+        toDecimalButton.setMinWidth(100);
 
         //The HBox that will contain the display TextField
         HBox displayArea = new HBox();
@@ -85,10 +93,9 @@ public class App extends Application {
         display.setEditable(false);
         //Binding the textField to the size of the HBox
         display.prefHeightProperty().bind(displayArea.heightProperty());
-        display.prefWidthProperty().bind(displayArea.widthProperty().multiply(.75));
-        decimal.prefHeightProperty().bind(displayArea.heightProperty());
-        decimal.prefWidthProperty().bind(displayArea.widthProperty().multiply(.25));
-        displayArea.getChildren().addAll(display, decimal);
+        display.prefWidthProperty().bind(displayArea.widthProperty());
+
+        displayArea.getChildren().addAll(display);
 
         HBox buttonRowOne = new HBox();
         //Binding the height of the HBox to 1/4 the height of the scene
@@ -136,7 +143,7 @@ public class App extends Application {
         squareRoot.prefHeightProperty().bind(buttonRowThree.heightProperty());
 
         //Adding all rows to the scene
-        calculatorUi.getChildren().addAll(displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
+        calculatorUi.getChildren().addAll(toggleButtonArea, displayArea, buttonRowOne, buttonRowTwo, buttonRowThree);
         calculatorUi.setMinSize(300, 400);
         return calculatorUi;
     }
@@ -234,5 +241,15 @@ public class App extends Application {
             }
             default -> display.setText(displayText.toString());
         }
+    }
+    private void toggleView() {
+        isQuaternaryView = !isQuaternaryView;
+        displayText = new StringBuilder(display.getText());
+        if(!displayText.isEmpty()) {
+            display.setText(isQuaternaryView
+                    ? calculator.converter.convertDecimalToQuarternary(Integer.parseInt(String.valueOf(displayText)))
+                    : String.valueOf(calculator.converter.convertQuarternatyToDecimal(String.valueOf(displayText))));
+        }
+
     }
 }
