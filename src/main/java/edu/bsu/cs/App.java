@@ -5,10 +5,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +47,6 @@ public class App extends Application {
     private final Button squareButton = new Button("\u33A1");
     private final Button squareRootButton = new Button("\u221A");
 
-
     /*Equals button gets the operator and the display text and adds it
     to the cached number in the calculator object*/
     private final Button equalsButton = new Button("=");
@@ -55,9 +61,12 @@ public class App extends Application {
         connectButtonEvents();
     }
 
+    @Override
     public void start(Stage primaryStage) {
         primaryStage.setScene(new Scene(setCalculatorLayout()));
         primaryStage.setTitle("Quaternary Calculator");
+        styleButtons();
+        display.setFont(Font.font("Segoe UI", 30));
         primaryStage.show();
     }
 
@@ -78,15 +87,27 @@ public class App extends Application {
         toDecimalButton.setOnAction(event -> toggleView());
     }
 
+    private void styleButtons(){
+        List<Button> numberButtons = Arrays.asList(zeroButton, oneButton, twoButton, threeButton);
+        List<Button> operationButtons = Arrays.asList(addButton, subtractButton, multiplyButton, divideButton, squareButton, squareRootButton);
+        List<Button> commandButtons = Arrays.asList(equalsButton, clearButton);
+
+        for (Button button : numberButtons) {button.setStyle("-fx-background-color: ghostwhite");
+        button.setFont(Font.font("Segoe UI", 20));}
+        for (Button button : operationButtons) {button.setStyle("-fx-background-color: orange");
+            button.setFont(Font.font("Segoe UI", 20));}
+        for (Button button : commandButtons) {button.setStyle("-fx-background-color: silver");
+            button.setFont(Font.font("Segoe UI", 20));}
+
+    }
+
     //Creating the scene to be called in the start method
     private Parent setCalculatorLayout() {
         List<Button> buttonList1 = Arrays.asList(zeroButton, oneButton, addButton, multiplyButton);
         List<Button> buttonList2 = Arrays.asList(twoButton, threeButton, subtractButton, divideButton);
         List<Button> buttonList3 = Arrays.asList(equalsButton, clearButton, squareButton, squareRootButton);
-
-        //Adding all rows to the scene
         calculatorUi.getChildren().addAll(createToggleArea(), createDisplayArea(), createButtonRow(buttonList1), createButtonRow(buttonList2), createButtonRow(buttonList3));
-        calculatorUi.setMinSize(300, 400);
+        calculatorUi.setMinSize(300, 450);
         return calculatorUi;
     }
 
@@ -111,11 +132,14 @@ public class App extends Application {
     private void clearDisplay(){
         if(isQuaternaryView) {
             //If the display text is empty clear the cached string in the Calculator
-            if(displayText.toString().equals("")) {
-                calculator.cacheNumber(displayText.toString());
+            if(!displayText.toString().equals(calculator.cache)) {
+                displayText = new StringBuilder(calculator.cache);
+                display.setText(displayText.toString());
             }
-            displayText = new StringBuilder();
-            display.setText(displayText.toString());
+            else{
+                displayText = new StringBuilder();
+                display.setText(displayText.toString());
+            }
         }
 
     }
